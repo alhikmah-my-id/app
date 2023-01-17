@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ALHIKMAH Not found 404</title>
+</head>
+<body>
+<script type="text/javascript">
+var request = new XMLHttpRequest();
+var extensions = ['.html', '.htm'];
+var count = 0;
+var baseurl = 'https://www.alhikmah.my.id';
+
+function validUrl(baseurl, cb) {
+  request.open('GET', baseurl + extensions[count], true);
+
+  request.onreadystatechange = function() {
+    if (request.readyState === 4) {
+      if (request.status === 200) {
+        cb(baseurl + extensions[count]);
+      } else {
+        count++;
+        if (count === extensions.length) {
+          cb(false);
+        } else {
+          validUrl(baseurl, cb);
+        }
+      }
+    }
+  };
+
+  request.send();
+}
+
+// usage:
+
+validUrl(baseurl, function(url) {
+  if (url) {
+    // use the valid url
+  } else {
+    console.log('no valid urls');
+  }
+});
+</script>
+</body>
+</html>
